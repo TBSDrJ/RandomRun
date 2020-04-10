@@ -1,4 +1,5 @@
 import networkx as nx
+import random
 
 map = nx.Graph()
 map.add_nodes_from(range(1,21))
@@ -34,5 +35,22 @@ map.add_weighted_edges_from([
     (15,17,0.05)
 ])
 
-for node in range(1,21):
-    print(node, map[node])
+currentNode = 2
+history = [1,2]
+historyIndex = 0
+stepNum = 0
+totalDistance = 0
+# targetDistance = int(input("Roughly how many miles do you want to go? "))
+targetDistance = 4
+minDistance = targetDistance * 0.75
+while totalDistance < minDistance:
+    possibleNodes = map[currentNode]
+    choices = list(possibleNodes.keys())
+    choices.remove(history[historyIndex])
+    historyIndex += 1
+    print(history[historyIndex], choices)
+    currentNode = random.choice(choices)
+    history.append(currentNode)
+    # print(currentNode, possibleNodes[currentNode]['weight'])
+    if currentNode == 1:
+        break
